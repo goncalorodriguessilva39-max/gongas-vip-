@@ -6,141 +6,124 @@
     <title>GONGAS V4 ULTIMATE</title>
     <style>
         @keyframes matrix { 0% { top: -100%; } 100% { top: 100%; } }
+        @keyframes rgbColor { 0% { color: red; } 33% { color: lime; } 66% { color: blue; } 100% { color: red; } }
         @keyframes rgbBorder { 0% { border-color: red; } 33% { border-color: #00ff00; } 66% { border-color: blue; } 100% { border-color: red; } }
-        body { background-color: #000; color: #ff00ff; font-family: 'Courier New', monospace; overflow-x: hidden; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; color: #0f0; font-size: 15px; z-index: -1; opacity: 0.3; overflow: hidden; }
-        .matrix-column { position: absolute; top: -100%; animation: matrix 5s linear infinite; white-space: nowrap; }
-        .container { background: rgba(0, 0, 0, 0.9); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 330px; text-align: center; position: relative; box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
-        h2, h3 { color: #fff; text-shadow: 2px 2px #ff00ff; margin-bottom: 15px; }
-        .aba { border: 1px solid #444; margin: 10px 0; padding: 10px; border-radius: 8px; text-align: left; }
-        .aba-title { font-weight: bold; font-size: 13px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 8px; }
-        label { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; font-size: 12px; color: #ff66ff; }
-        input[type="checkbox"] { width: 18px; height: 18px; accent-color: #00ff00; }
-        input[type="range"] { width: 100%; accent-color: #ff00ff; }
-        input[type="password"] { padding: 12px; width: 85%; background: #111; color: #fff; border: 2px solid #ff00ff; border-radius: 5px; text-align: center; font-weight: bold; }
-        .btn-inj { width: 100%; padding: 15px; background: #00ff00; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; color: #000; text-transform: uppercase; }
-        #console { background: #000; color: #0f0; font-size: 10px; height: 80px; overflow-y: auto; border: 1px solid #333; margin-top: 10px; padding: 5px; display: none; text-align: left; }
-        .rgb-text { font-weight: bold; animation: rgbText 1s linear infinite; font-size: 16px; margin-top: 10px; }
-        @keyframes rgbText { 0% { color: red; } 50% { color: lime; } 100% { color: blue; } }
+        @keyframes zoomAtivar { 0% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 50px #00ff00; } 100% { transform: scale(1.05); } }
+
+        body { background-color: #000; color: #ff00ff; font-family: 'Courier New', monospace; overflow: hidden; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        /* Fundo Matrix RGB */
+        #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
+        .matrix-column { position: absolute; top: -100%; animation: matrix 5s linear infinite, rgbColor 3s linear infinite; white-space: nowrap; font-size: 18px; font-weight: bold; }
+
+        .container { background: rgba(0, 0, 0, 0.95); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 330px; text-align: center; position: relative; transition: all 0.5s ease; }
+        .zoom-active { animation: zoomAtivar 0.8s forwards; border-color: #00ff00 !important; }
+
+        h2, h3 { color: #fff; text-shadow: 2px 2px #ff00ff; }
+        .aba-content { display: none; text-align: left; }
+        .aba-content.active { display: block; }
+        
+        .aba-title { font-weight: bold; font-size: 14px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 15px; padding-bottom: 5px; text-align: center; }
+        label { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; font-size: 13px; color: #ff66ff; }
+        
+        input[type="text"] { padding: 12px; width: 85%; background: #111; color: #fff; border: 2px solid #ff00ff; border-radius: 5px; text-align: center; margin-bottom: 10px; }
+        .btn-next { width: 100%; padding: 12px; background: #ff00ff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-inj { width: 100%; padding: 15px; background: #00ff00; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; color: #000; margin-top: 10px; }
+        
+        #console { background: #000; color: #0f0; font-size: 10px; height: 70px; overflow-y: auto; border: 1px solid #333; margin-top: 10px; padding: 5px; display: none; }
+        .rgb-text { font-weight: bold; animation: rgbColor 1s linear infinite; font-size: 18px; }
     </style>
 </head>
 <body>
 
 <div id="matrix-bg"></div>
 
-<div class="container">
-    <div id="login-screen">
+<div class="container" id="painel-box">
+    <div id="aba-login" class="aba-content active">
         <h2>INSERIR SENHA</h2>
-        <input type="text" id="passInput" placeholder="DIGITE A SENHA AQUI">
-        <p id="loginMsg" style="font-size: 12px; margin: 10px 0;"></p>
-        <button class="btn-inj" onclick="verificarSenha()">ACESSAR PAINEL</button>
+        <input type="text" id="passInput" placeholder="SENHA VIP">
+        <p id="loginMsg"></p>
+        <button class="btn-next" onclick="verificarSenha()">ENTRAR</button>
     </div>
 
-    <div id="main-panel" style="display:none;">
-        <h3 class="rgb-text">GONGAS V4 ULTIMATE</h3>
-        
-        <div class="aba">
-            <div class="aba-title">ABA 1: AIMBOT</div>
-            <label>Aimbot Suave <input type="checkbox" onchange="marcar(this)"> </label>
-            <label>Aimbot Legit <input type="checkbox" onchange="marcar(this)"> </label>
-            <label>Aimbot Full <input type="checkbox" onchange="marcar(this)"> </label>
-        </div>
+    <div id="aba1" class="aba-content">
+        <div class="aba-title">ABA 1: FUNÇÕES AIMBOT</div>
+        <label>Aimbot Suave <input type="checkbox"></label>
+        <label>Aimbot Legit <input type="checkbox"></label>
+        <label>Aimbot Full <input type="checkbox"></label>
+        <button class="btn-next" onclick="proxima('aba2')">PRÓXIMO ➡</button>
+    </div>
 
-        <div class="aba">
-            <div class="aba-title">ABA 2: RECOIL</div>
-            <label>No Recoil Full <input type="checkbox" onchange="marcar(this)"> </label>
-        </div>
+    <div id="aba2" class="aba-content">
+        <div class="aba-title">ABA 2: CONTROLO DE MIRA</div>
+        <label>No Recoil Full <input type="checkbox"></label>
+        <label>Mira Grudante <input type="checkbox"></label>
+        <button class="btn-next" onclick="proxima('aba3')">PRÓXIMO ➡</button>
+    </div>
 
-        <div class="aba">
-            <div class="aba-title">ABA 3: DESEMPENHO</div>
-            <label>FPS Full <input type="checkbox" onchange="marcar(this)"> </label>
-            <label>Mira Grudante <input type="checkbox" onchange="marcar(this)"> </label>
-            <div style="font-size:10px; color: white;">FOV: <input type="range" min="0" max="100"></div>
-        </div>
+    <div id="aba3" class="aba-content">
+        <div class="aba-title">ABA 3: ARMAS MELHORADAS</div>
+        <label>Desert / UMP <input type="range" min="0" max="100"></label>
+        <label>XM8 / AC80 <input type="range" min="0" max="100"></label>
+        <label>Carapina <input type="range" min="0" max="100"></label>
+        <button class="btn-next" onclick="proxima('aba4')">PRÓXIMO ➡</button>
+    </div>
 
-        <div class="aba">
-            <div class="aba-title">ARMAS (0-100)</div>
-            <label>Desert / UMP <input type="range" min="0" max="100"></label>
-            <label>XM8 / AC80 <input type="range" min="0" max="100"></label>
-        </div>
-
-        <div class="aba">
-            <div class="aba-title">MOD HACK MIRA</div>
-            <p style="font-size:10px; color:white;">Ativar Mod Full?</p>
-            <div style="display:flex; justify-content:center; gap:15px;">
-                <label>SIM <input type="checkbox" id="mSim"></label>
-                <label>NÃO <input type="checkbox" id="mNao"></label>
-            </div>
-        </div>
-
-        <div class="aba">
-            <label style="color:red; font-weight:bold;">XIT PURO 💀 <input type="checkbox" style="accent-color:red;"> </label>
-        </div>
-
-        <button class="btn-inj" id="btnInjetar" onclick="processar()">INJETAR AGORA</button>
+    <div id="aba4" class="aba-content">
+        <div class="aba-title">ABA 4: FINALIZAR XIT</div>
+        <label style="color:red; font-weight:bold;">XIT PURO 💀 <input type="checkbox"></label>
+        <button class="btn-inj" id="btnInjetar" onclick="injetarFinal()">INJETAR AGORA</button>
         <div id="console"></div>
-        <div id="statusFinal" class="rgb-text" style="display:none;">AUXÍLIO ATIVADO ⚠️</div>
+        <div id="statusFinal" class="rgb-text" style="display:none; margin-top:10px;">AUXÍLIO ATIVADO ⚠️</div>
     </div>
 </div>
 
 <script>
-    // Fundo Matrix
+    // Criar Matrix RGB
     const bg = document.getElementById('matrix-bg');
-    for(let i=0; i<15; i++) {
+    for(let i=0; i<20; i++) {
         let col = document.createElement('div');
         col.className = 'matrix-column';
         col.style.left = Math.random() * 100 + '%';
         col.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        col.innerText = "101100101010110";
+        col.innerText = "82739501";
         bg.appendChild(col);
     }
 
-    // Função de Senha CORRIGIDA
     function verificarSenha() {
         const p = document.getElementById('passInput').value.trim().toUpperCase();
         const msg = document.getElementById('loginMsg');
-        
         if(p === "VIP") {
-            msg.style.color = "#00ff00";
-            msg.innerText = "SENHA XITADA CORRETA!";
-            setTimeout(() => {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-panel').style.display = 'block';
-            }, 800);
+            msg.style.color = "#0f0"; msg.innerText = "SENHA XITADA CORRETA!";
+            setTimeout(() => proxima('aba1'), 600);
         } else {
-            msg.style.color = "red";
-            msg.innerText = "PELO CONTRÁRIO!";
+            msg.style.color = "red"; msg.innerText = "PELO CONTRÁRIO!";
         }
     }
 
-    function marcar(cb) {
-        if(cb.checked) {
-            let s = document.createElement('span');
-            s.className = 'check';
-            s.innerText = " ✅️";
-            cb.parentElement.appendChild(s);
-        } else {
-            let icon = cb.parentElement.querySelector('.check');
-            if(icon) icon.remove();
-        }
+    function proxima(idAlvo) {
+        document.querySelectorAll('.aba-content').forEach(a => a.classList.remove('active'));
+        document.getElementById(idAlvo).classList.add('active');
     }
 
-    function processar() {
+    function injetarFinal() {
         const c = document.getElementById('console');
+        const box = document.getElementById('painel-box');
         c.style.display = 'block';
-        document.getElementById('btnInjetar').innerText = "INJETANDO...";
-        const logs = ["> Bypass ATIVO", "> HS Cabeça 100%", "> Regedit OK", "> FINALIZADO!"];
+        document.getElementById('btnInjetar').innerText = "CALIBRANDO...";
+        
+        const logs = ["> Bypass...", "> Carapina VIP...", "> Zoom Fix...", "> Ativando!"];
         let i = 0;
         let t = setInterval(() => {
             if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; }
             else { 
                 clearInterval(t); 
+                box.classList.add('zoom-active'); // Efeito de Zoom
                 document.getElementById('statusFinal').style.display = 'block';
-                document.getElementById('btnInjetar').innerText = "CONCLUÍDO!";
+                document.getElementById('btnInjetar').style.display = 'none';
             }
-        }, 600);
+        }, 700);
     }
 </script>
 </body>
 </html>
-                            
