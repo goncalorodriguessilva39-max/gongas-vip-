@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GONGAS V3 VIP</title>
+    <style>
+        @keyframes rgb { 0% { border-color: red; box-shadow: 0 0 15px red; } 50% { border-color: #00ff99; box-shadow: 0 0 15px #00ff99; } 100% { border-color: red; box-shadow: 0 0 15px red; } }
+        body { background: #000; color: #00ff99; font-family: monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        #login { text-align: center; border: 2px solid; animation: rgb 3s infinite; padding: 30px; border-radius: 15px; background: #0a0a0a; }
+        input[type=password] { background: #000; border: 1px solid #00ff99; color: #fff; padding: 10px; margin: 15px 0; text-align: center; width: 80%; outline: none; }
+        #painel { display: none; width: 330px; border: 1px solid #00ff99; padding: 15px; background: rgba(10,10,10,0.95); border-radius: 10px; }
+        .bar { width: 100%; accent-color: #00ff99; margin-bottom: 10px; }
+        #console { background: #000; height: 120px; font-size: 10px; padding: 10px; border: 1px solid #333; margin-top: 10px; overflow: hidden; color: #00ff99; display: none; text-align: left; }
+        .btn { width: 100%; padding: 15px; background: #00ff99; color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 5px; }
+        .modo-hack { border: 1px solid red; padding: 8px; margin: 10px 0; display:flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+
+<div id="login">
+    <h2 style="color:white; margin-top:0;">GONGAS VIP</h2>
+    <input type="password" id="pass" placeholder="SENHA VIP">
+    <br>
+    <button class="btn" onclick="entrar()">ENTRAR NO PAINEL</button>
+</div>
+
+<div id="painel">
+    <h2 style="text-align:center; color:white; margin-top:0;">GONGAS V3 PRO</h2>
+    <div style="font-size:12px">
+        Aimbot Full: <input type="range" class="bar">
+        Mira Grudante: <input type="range" class="bar">
+        FPS Ultra Full: <input type="range" class="bar" max="120" value="60">
+        Segurança Antiban: <input type="range" class="bar" value="100">
+        
+        <div class="modo-hack">
+            <span style="color:red; font-weight:bold;">MODO HACK ATIVO</span> 
+            <input type="checkbox" checked style="accent-color:red; width:18px; height:18px;">
+        </div>
+    </div>
+    <button class="btn" id="injBtn" onclick="injetar()">INJETAR NO JOGO</button>
+    <div id="console"></div>
+</div>
+
+<script>
+    function entrar() {
+        if(document.getElementById('pass').value === "VIP") {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('painel').style.display = 'block';
+        } else { alert("SENHA INCORRETA! Tente novamente."); }
+    }
+
+    function injetar() {
+        document.getElementById('injBtn').style.display = 'none';
+        const c = document.getElementById('console');
+        c.style.display = 'block';
+        const logs = [
+            "> Bypass Iniciado...",
+            "> Procurando com.dts.freefireth...",
+            "> Processo Encontrado (0x7FFA)",
+            "> Injetando Scripts VIP...",
+            "> Aimbot & Aimlock: ATIVOS",
+            "> Limpando Logs do Sistema...",
+            "> AUXILIO VIP PRONTO!"
+        ];
+        let i = 0;
+        let t = setInterval(() => {
+            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; }
+            else { 
+                clearInterval(t);
+                alert("AUXILIO VIP PRONTO PARA JOGAR APROVEITE SÓ!"); 
+                document.body.innerHTML = "<div style='text-align:center; padding:50px; animation: rgb 2s infinite linear; border: 2px solid; margin: 20px; border-radius: 15px;'><h1 style='color:#00ff99'>GONGAS PRO ATIVO</h1><p style='color:white'>Auxílio VIP pronto para jogar. Aproveite só!</p><p style='font-size: 10px; color: #555;'>Minimize agora e abra o Free Fire.</p></div>";
+            }
+        }, 700);
+    }
+</script>
+</body>
+</html>
