@@ -3,75 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GONGAS V3 VIP</title>
+    <title>GONGAS V4 ULTRA VIP</title>
     <style>
         @keyframes rgb { 0% { border-color: red; box-shadow: 0 0 15px red; } 50% { border-color: #00ff99; box-shadow: 0 0 15px #00ff99; } 100% { border-color: red; box-shadow: 0 0 15px red; } }
-        body { background: #000; color: #00ff99; font-family: monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        #login { text-align: center; border: 2px solid; animation: rgb 3s infinite; padding: 30px; border-radius: 15px; background: #0a0a0a; }
-        input[type=password] { background: #000; border: 1px solid #00ff99; color: #fff; padding: 10px; margin: 15px 0; text-align: center; width: 80%; outline: none; }
-        #painel { display: none; width: 330px; border: 1px solid #00ff99; padding: 15px; background: rgba(10,10,10,0.95); border-radius: 10px; }
-        .bar { width: 100%; accent-color: #00ff99; margin-bottom: 10px; }
-        #console { background: #000; height: 120px; font-size: 10px; padding: 10px; border: 1px solid #333; margin-top: 10px; overflow: hidden; color: #00ff99; display: none; text-align: left; }
-        .btn { width: 100%; padding: 15px; background: #00ff99; color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 5px; }
-        .modo-hack { border: 1px solid red; padding: 8px; margin: 10px 0; display:flex; justify-content: space-between; align-items: center; }
+        body { background: #000; color: #00ff99; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        #login { text-align: center; border: 2px solid; animation: rgb 2s infinite; padding: 30px; border-radius: 15px; background: #0a0a0a; width: 280px; }
+        input[type=password] { background: #000; border: 1px solid #00ff99; color: #fff; padding: 12px; margin: 15px 0; text-align: center; width: 80%; border-radius: 5px; outline: none; font-weight: bold; }
+        #painel { display: none; width: 340px; border: 1px solid #00ff99; padding: 15px; background: rgba(10,10,10,0.98); border-radius: 15px; position: relative; }
+        .header { text-align: center; border-bottom: 1px solid #333; margin-bottom: 15px; padding-bottom: 10px; }
+        .section-title { font-size: 12px; color: #fff; background: #333; padding: 3px 10px; border-radius: 3px; margin-top: 10px; display: inline-block; }
+        .option { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1a1a; }
+        .bar { width: 100px; accent-color: #00ff99; }
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 20px; }
+        input:checked + .slider { background-color: #00ff99; }
+        #console { background: #000; height: 100px; font-size: 10px; padding: 10px; border: 1px solid #333; margin-top: 15px; overflow-y: auto; color: #00ff99; display: none; }
+        .btn { width: 100%; padding: 15px; background: #00ff99; color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; margin-top: 15px; text-transform: uppercase; }
+        .badge-vip { color: gold; font-size: 10px; font-weight: bold; border: 1px solid gold; padding: 2px 5px; border-radius: 3px; }
     </style>
 </head>
 <body>
 
 <div id="login">
-    <h2 style="color:white; margin-top:0;">GONGAS VIP</h2>
-    <input type="password" id="pass" placeholder="SENHA VIP">
-    <br>
-    <button class="btn" onclick="entrar()">ENTRAR NO PAINEL</button>
+    <h2 style="color:white; margin:0;">GONGAS <span style="color:#00ff99">V4</span></h2>
+    <p style="font-size:10px; color:#666;">AUTENTICAÇÃO NECESSÁRIA</p>
+    <input type="password" id="pass" placeholder="SENHA DE ACESSO">
+    <button class="btn" onclick="entrar()">ENTRAR</button>
 </div>
 
 <div id="painel">
-    <h2 style="text-align:center; color:white; margin-top:0;">GONGAS V3 PRO</h2>
-    <div style="font-size:12px">
-        Aimbot Full: <input type="range" class="bar">
-        Mira Grudante: <input type="range" class="bar">
-        FPS Ultra Full: <input type="range" class="bar" max="120" value="60">
-        Segurança Antiban: <input type="range" class="bar" value="100">
-        
-        <div class="modo-hack">
-            <span style="color:red; font-weight:bold;">MODO HACK ATIVO</span> 
-            <input type="checkbox" checked style="accent-color:red; width:18px; height:18px;">
-        </div>
+    <div class="header">
+        <h3 style="margin:0; color:white;">GONGAS V4 ULTRA <span class="badge-vip">PRO</span></h3>
+        <small style="color:#666;">Status: <span style="color:#00ff99">ONLINE</span></small>
     </div>
-    <button class="btn" id="injBtn" onclick="injetar()">INJETAR NO JOGO</button>
+
+    <span class="section-title">COMBATE (AIM)</span>
+    <div class="option">
+        <span>Aimbot 100%</span>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+    </div>
+    <div class="option">
+        <span>Mira Grudante</span>
+        <input type="range" class="bar" value="100">
+    </div>
+    <div class="option">
+        <span>No Recoil</span>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+    </div>
+
+    <span class="section-title">VISUAL & MAPA</span>
+    <div class="option">
+        <span>Antena Cabeça</span>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+    </div>
+    <div class="option">
+        <span>Linha Laser</span>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+    </div>
+
+    <span class="section-title">SISTEMA & VELOCIDADE</span>
+    <div class="option">
+        <span>Regedit Mobile</span>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+    </div>
+    <div class="option">
+        <span>Velocidade x2</span>
+        <input type="range" class="bar" value="0">
+    </div>
+    <div class="option">
+        <span>FPS Ultra (120hz)</span>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+    </div>
+
+    <button class="btn" id="injBtn" onclick="injetar()">ATIVAR FUNÇÕES V4</button>
     <div id="console"></div>
 </div>
 
 <script>
     function entrar() {
-        if(document.getElementById('pass').value === "VIP") {
+        if(document.getElementById('pass').value.toUpperCase() === "VIP") {
             document.getElementById('login').style.display = 'none';
             document.getElementById('painel').style.display = 'block';
-        } else { alert("SENHA INCORRETA! Tente novamente."); }
+        } else { alert("SENHA INCORRETA!"); }
     }
 
     function injetar() {
-        document.getElementById('injBtn').style.display = 'none';
+        const btn = document.getElementById('injBtn');
+        btn.innerHTML = "INJETANDO...";
+        btn.style.background = "#555";
         const c = document.getElementById('console');
         c.style.display = 'block';
         const logs = [
-            "> Bypass Iniciado...",
-            "> Procurando com.dts.freefireth...",
-            "> Processo Encontrado (0x7FFA)",
-            "> Injetando Scripts VIP...",
-            "> Aimbot & Aimlock: ATIVOS",
-            "> Limpando Logs do Sistema...",
-            "> AUXILIO VIP PRONTO!"
+            "> [SISTEMA] Iniciando Bypass V4...",
+            "> [MEMÓRIA] Modificando offsets de mira...",
+            "> [HACK] Antena Cabeça carregada.",
+            "> [HACK] Regedit aplicado ao sistema.",
+            "> [LOG] Limpando rastros do jogo...",
+            "> [INFO] Proteção Antiban Ativa.",
+            "> [OK] SUCESSO! APROVEITE O GONGAS VIP!"
         ];
         let i = 0;
         let t = setInterval(() => {
-            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; }
+            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; c.scrollTop = c.scrollHeight; }
             else { 
                 clearInterval(t);
-                alert("AUXILIO VIP PRONTO PARA JOGAR APROVEITE SÓ!"); 
-                document.body.innerHTML = "<div style='text-align:center; padding:50px; animation: rgb 2s infinite linear; border: 2px solid; margin: 20px; border-radius: 15px;'><h1 style='color:#00ff99'>GONGAS PRO ATIVO</h1><p style='color:white'>Auxílio VIP pronto para jogar. Aproveite só!</p><p style='font-size: 10px; color: #555;'>Minimize agora e abra o Free Fire.</p></div>";
+                setTimeout(() => {
+                    document.body.innerHTML = "<div style='text-align:center; padding:50px; border: 2px solid #00ff99; margin: 20px; border-radius: 15px; background:#0a0a0a; animation: rgb 1s infinite;'><h1 style='color:#00ff99'>GONGAS V4 ATIVO</h1><p style='color:white'>As funções foram injetadas com sucesso!</p><button onclick='location.reload()' style='background:#00ff99; border:none; padding:10px 20px; border-radius:5px; font-weight:bold;'>VOLTAR</button></div>";
+                }, 1000);
             }
-        }, 700);
+        }, 800);
     }
 </script>
 </body>
