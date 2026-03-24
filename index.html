@@ -8,26 +8,25 @@
         @keyframes matrix { 0% { top: -100%; } 100% { top: 100%; } }
         @keyframes rgbColor { 0% { color: red; } 33% { color: lime; } 66% { color: blue; } 100% { color: red; } }
         @keyframes rgbBorder { 0% { border-color: red; } 33% { border-color: #00ff00; } 66% { border-color: blue; } 100% { border-color: red; } }
-        @keyframes zoomAtivar { 0% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 50px #00ff00; } 100% { transform: scale(1.05); } }
+        @keyframes zoomAtivar { 0% { transform: scale(1); } 50% { transform: scale(1.15); box-shadow: 0 0 60px #00ff00; } 100% { transform: scale(1.05); } }
 
         body { background-color: #000; color: #ff00ff; font-family: 'Courier New', monospace; overflow: hidden; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* Fundo Matrix RGB */
-        #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
-        .matrix-column { position: absolute; top: -100%; animation: matrix 5s linear infinite, rgbColor 3s linear infinite; white-space: nowrap; font-size: 18px; font-weight: bold; }
+        #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
+        .matrix-column { position: absolute; top: -100%; animation: matrix 4s linear infinite, rgbColor 2s linear infinite; white-space: nowrap; font-size: 20px; font-weight: bold; }
 
-        .container { background: rgba(0, 0, 0, 0.95); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 330px; text-align: center; position: relative; transition: all 0.5s ease; }
-        .zoom-active { animation: zoomAtivar 0.8s forwards; border-color: #00ff00 !important; }
+        .container { background: rgba(0, 0, 0, 0.96); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 330px; text-align: center; position: relative; transition: all 0.4s ease; }
+        .zoom-active { animation: zoomAtivar 0.7s forwards; border-color: #00ff00 !important; }
 
         h2, h3 { color: #fff; text-shadow: 2px 2px #ff00ff; }
         .aba-content { display: none; text-align: left; }
         .aba-content.active { display: block; }
         
-        .aba-title { font-weight: bold; font-size: 14px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 15px; padding-bottom: 5px; text-align: center; }
-        label { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; font-size: 13px; color: #ff66ff; }
+        .aba-title { font-weight: bold; font-size: 14px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 15px; padding-bottom: 5px; text-align: center; text-transform: uppercase; }
+        label { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; font-size: 13px; color: #ff66ff; font-weight: bold; }
         
         input[type="text"] { padding: 12px; width: 85%; background: #111; color: #fff; border: 2px solid #ff00ff; border-radius: 5px; text-align: center; margin-bottom: 10px; }
-        .btn-next { width: 100%; padding: 12px; background: #ff00ff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-next { width: 100%; padding: 12px; background: #ff00ff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
         .btn-inj { width: 100%; padding: 15px; background: #00ff00; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; color: #000; margin-top: 10px; }
         
         #console { background: #000; color: #0f0; font-size: 10px; height: 70px; overflow-y: auto; border: 1px solid #333; margin-top: 10px; padding: 5px; display: none; }
@@ -70,7 +69,17 @@
     </div>
 
     <div id="aba4" class="aba-content">
-        <div class="aba-title">ABA 4: FINALIZAR XIT</div>
+        <div class="aba-title" style="color:red;">MOD HACK MIRA FULL</div>
+        <p style="font-size:11px; color:white; text-align:center;">Meu caro sobrevivente, quer mesmo ativar?</p>
+        <div style="display:flex; justify-content:center; gap:20px;">
+            <label>SIM <input type="checkbox" id="modSim" onclick="toggleMod(true)"></label>
+            <label>NÃO <input type="checkbox" id="modNao" onclick="toggleMod(false)"></label>
+        </div>
+        <button class="btn-next" onclick="proxima('aba5')">PRÓXIMO ➡</button>
+    </div>
+
+    <div id="aba5" class="aba-content">
+        <div class="aba-title">ABA 5: FINALIZAR INJEÇÃO</div>
         <label style="color:red; font-weight:bold;">XIT PURO 💀 <input type="checkbox"></label>
         <button class="btn-inj" id="btnInjetar" onclick="injetarFinal()">INJETAR AGORA</button>
         <div id="console"></div>
@@ -79,14 +88,14 @@
 </div>
 
 <script>
-    // Criar Matrix RGB
+    // Gerar Matrix RGB com números
     const bg = document.getElementById('matrix-bg');
     for(let i=0; i<20; i++) {
         let col = document.createElement('div');
         col.className = 'matrix-column';
         col.style.left = Math.random() * 100 + '%';
-        col.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        col.innerText = "82739501";
+        col.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        col.innerText = Math.floor(Math.random() * 900000);
         bg.appendChild(col);
     }
 
@@ -106,23 +115,28 @@
         document.getElementById(idAlvo).classList.add('active');
     }
 
+    function toggleMod(val) {
+        if(val) document.getElementById('modNao').checked = false;
+        else document.getElementById('modSim').checked = false;
+    }
+
     function injetarFinal() {
         const c = document.getElementById('console');
         const box = document.getElementById('painel-box');
         c.style.display = 'block';
-        document.getElementById('btnInjetar').innerText = "CALIBRANDO...";
+        document.getElementById('btnInjetar').innerText = "INJETANDO...";
         
-        const logs = ["> Bypass...", "> Carapina VIP...", "> Zoom Fix...", "> Ativando!"];
+        const logs = ["> Bypass ATIVO", "> MOD HACK OK", "> Carapina 100%", "> Aplicando Zoom..."];
         let i = 0;
         let t = setInterval(() => {
-            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; }
+            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; c.scrollTop = c.scrollHeight; }
             else { 
                 clearInterval(t); 
-                box.classList.add('zoom-active'); // Efeito de Zoom
+                box.classList.add('zoom-active'); 
                 document.getElementById('statusFinal').style.display = 'block';
                 document.getElementById('btnInjetar').style.display = 'none';
             }
-        }, 700);
+        }, 600);
     }
 </script>
 </body>
