@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -7,32 +7,20 @@
     <style>
         @keyframes matrix { 0% { top: -100%; } 100% { top: 100%; } }
         @keyframes rgbBorder { 0% { border-color: red; } 33% { border-color: #00ff00; } 66% { border-color: blue; } 100% { border-color: red; } }
-        
         body { background-color: #000; color: #ff00ff; font-family: 'Courier New', monospace; overflow-x: hidden; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        
-        /* Fundo Matrix */
         #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; color: #0f0; font-size: 15px; z-index: -1; opacity: 0.3; overflow: hidden; }
-        .matrix-column { position: absolute; top: -100%; animation: matrix 5s linear infinite; }
-
-        .container { background: rgba(0, 0, 0, 0.9); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 350px; text-align: center; position: relative; box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
-        
-        h2, h3 { color: #fff; text-shadow: 2px 2px #ff00ff; }
+        .matrix-column { position: absolute; top: -100%; animation: matrix 5s linear infinite; white-space: nowrap; }
+        .container { background: rgba(0, 0, 0, 0.9); border: 4px solid; animation: rgbBorder 2s linear infinite; border-radius: 15px; padding: 20px; width: 330px; text-align: center; position: relative; box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+        h2, h3 { color: #fff; text-shadow: 2px 2px #ff00ff; margin-bottom: 15px; }
         .aba { border: 1px solid #444; margin: 10px 0; padding: 10px; border-radius: 8px; text-align: left; }
-        .aba-title { font-weight: bold; font-size: 14px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 8px; }
-        
-        label { display: flex; justify-content: space-between; align-items: center; margin: 5px 0; font-size: 13px; color: #ff66ff; }
-        
-        input[type="checkbox"] { width: 18px; height: 18px; accent-color: #00ff00; border: 2px solid; animation: rgbBorder 3s infinite; }
+        .aba-title { font-weight: bold; font-size: 13px; color: #00ffff; border-bottom: 1px solid #444; margin-bottom: 8px; }
+        label { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; font-size: 12px; color: #ff66ff; }
+        input[type="checkbox"] { width: 18px; height: 18px; accent-color: #00ff00; }
         input[type="range"] { width: 100%; accent-color: #ff00ff; }
-        
-        #login-screen { display: block; }
-        #main-panel { display: none; }
-        
-        .btn-inj { width: 100%; padding: 12px; background: #00ff00; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 10px; }
-        #console { background: #000; color: #0f0; font-size: 10px; height: 80px; overflow-y: auto; border: 1px solid #333; margin-top: 10px; padding: 5px; display: none; }
-        
-        .status-icon { margin-left: 5px; }
-        .rgb-text { font-weight: bold; animation: rgbText 1s linear infinite; font-size: 18px; }
+        input[type="password"] { padding: 12px; width: 85%; background: #111; color: #fff; border: 2px solid #ff00ff; border-radius: 5px; text-align: center; font-weight: bold; }
+        .btn-inj { width: 100%; padding: 15px; background: #00ff00; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; color: #000; text-transform: uppercase; }
+        #console { background: #000; color: #0f0; font-size: 10px; height: 80px; overflow-y: auto; border: 1px solid #333; margin-top: 10px; padding: 5px; display: none; text-align: left; }
+        .rgb-text { font-weight: bold; animation: rgbText 1s linear infinite; font-size: 16px; margin-top: 10px; }
         @keyframes rgbText { 0% { color: red; } 50% { color: lime; } 100% { color: blue; } }
     </style>
 </head>
@@ -43,108 +31,115 @@
 <div class="container">
     <div id="login-screen">
         <h2>INSERIR SENHA</h2>
-        <input type="password" id="passInput" style="padding:10px; width:80%; background:#111; color:#fff; border:1px solid #ff00ff; border-radius:5px; text-align:center;">
-        <br><br>
-        <button class="btn-inj" onclick="checkPass()">ACESSAR XIT</button>
-        <p id="loginMsg"></p>
+        <input type="text" id="passInput" placeholder="DIGITE A SENHA AQUI">
+        <p id="loginMsg" style="font-size: 12px; margin: 10px 0;"></p>
+        <button class="btn-inj" onclick="verificarSenha()">ACESSAR PAINEL</button>
     </div>
 
-    <div id="main-panel">
+    <div id="main-panel" style="display:none;">
         <h3 class="rgb-text">GONGAS V4 ULTIMATE</h3>
         
         <div class="aba">
-            <div class="aba-title">ABA 1: FUNÇÕES AIMBOT</div>
-            <label>Aimbot Suave <input type="checkbox" onchange="toggle(this)"> </label>
-            <label>Aimbot Legit <input type="checkbox" onchange="toggle(this)"> </label>
-            <label>Aimbot Full <input type="checkbox" onchange="toggle(this)"> </label>
+            <div class="aba-title">ABA 1: AIMBOT</div>
+            <label>Aimbot Suave <input type="checkbox" onchange="marcar(this)"> </label>
+            <label>Aimbot Legit <input type="checkbox" onchange="marcar(this)"> </label>
+            <label>Aimbot Full <input type="checkbox" onchange="marcar(this)"> </label>
         </div>
 
         <div class="aba">
-            <div class="aba-title">ABA 2: RECOIL CONTROL</div>
-            <label>No Recoil Full <input type="checkbox" onchange="toggle(this)"> </label>
+            <div class="aba-title">ABA 2: RECOIL</div>
+            <label>No Recoil Full <input type="checkbox" onchange="marcar(this)"> </label>
         </div>
 
         <div class="aba">
-            <div class="aba-title">ABA 3: DESEMPENHO & FOV</div>
-            <label>FPS Full <input type="checkbox" onchange="toggle(this)"> </label>
-            <label>Desempenho Máximo <input type="checkbox" onchange="toggle(this)"> </label>
-            <label>Mira Grudante <input type="checkbox" onchange="toggle(this)"> </label>
-            <div style="font-size:10px;">FOV: <input type="range" min="0" max="100" value="50"></div>
+            <div class="aba-title">ABA 3: DESEMPENHO</div>
+            <label>FPS Full <input type="checkbox" onchange="marcar(this)"> </label>
+            <label>Mira Grudante <input type="checkbox" onchange="marcar(this)"> </label>
+            <div style="font-size:10px; color: white;">FOV: <input type="range" min="0" max="100"></div>
         </div>
 
         <div class="aba">
-            <div class="aba-title">ARMAS MELHORADAS (0-100)</div>
-            <label>Desert Eagle <input type="range" min="0" max="100"></label>
-            <label>UMP <input type="range" min="0" max="100"></label>
-            <label>XM8 <input type="range" min="0" max="100"></label>
-            <label>Carapina / AC80 <input type="range" min="0" max="100"></label>
+            <div class="aba-title">ARMAS (0-100)</div>
+            <label>Desert / UMP <input type="range" min="0" max="100"></label>
+            <label>XM8 / AC80 <input type="range" min="0" max="100"></label>
         </div>
 
         <div class="aba">
-            <div class="aba-title">LOCAL DO HS (BONECO FF)</div>
-            <div style="display:flex; justify-content:space-around; font-size:11px;">
-                <label>Cabeça <input type="checkbox" onchange="toggle(this)"></label>
-                <label>Pescoço <input type="checkbox" onchange="toggle(this)"></label>
-                <label>Peito <input type="checkbox" onchange="toggle(this)"></label>
-            </div>
-        </div>
-
-        <div class="aba" style="border: 2px solid red;">
-            <div class="aba-title" style="color:red;">MOD HACK MIRA FULL AIMBOT</div>
-            <p style="font-size:10px; color:white;">Meu caro sobrevivente, quer mesmo ativar?</p>
-            <div style="display:flex; justify-content:center; gap:20px;">
-                <label>SIM <input type="checkbox" id="modSim" onclick="confirmMod(true)"></label>
-                <label>NÃO <input type="checkbox" id="modNao" onclick="confirmMod(false)"></label>
+            <div class="aba-title">MOD HACK MIRA</div>
+            <p style="font-size:10px; color:white;">Ativar Mod Full?</p>
+            <div style="display:flex; justify-content:center; gap:15px;">
+                <label>SIM <input type="checkbox" id="mSim"></label>
+                <label>NÃO <input type="checkbox" id="mNao"></label>
             </div>
         </div>
 
         <div class="aba">
-            <label style="color:red; font-weight:bold;">XIT PURO 💀 <input type="checkbox" style="accent-color:red;" onchange="toggle(this)"></label>
+            <label style="color:red; font-weight:bold;">XIT PURO 💀 <input type="checkbox" style="accent-color:red;"> </label>
         </div>
 
-        <div class="aba">
-            <div class="aba-title">ABA 4: INJETAR AUXÍLIO</div>
-            <button class="btn-inj" onclick="injetar()">INJETAR AGORA</button>
-            <div id="console"></div>
-            <div id="statusFinal" class="rgb-text" style="margin-top:10px; display:none;">AUXÍLIO ATIVADO ⚠️</div>
-        </div>
+        <button class="btn-inj" id="btnInjetar" onclick="processar()">INJETAR AGORA</button>
+        <div id="console"></div>
+        <div id="statusFinal" class="rgb-text" style="display:none;">AUXÍLIO ATIVADO ⚠️</div>
     </div>
 </div>
 
 <script>
-    // Gerar fundo matrix
+    // Fundo Matrix
     const bg = document.getElementById('matrix-bg');
-    for(let i=0; i<20; i++) {
+    for(let i=0; i<15; i++) {
         let col = document.createElement('div');
         col.className = 'matrix-column';
         col.style.left = Math.random() * 100 + '%';
         col.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        col.innerText = "10101100101011010110";
+        col.innerText = "101100101010110";
         bg.appendChild(col);
     }
 
-    function checkPass() {
-        const pass = document.getElementById('passInput').value;
+    // Função de Senha CORRIGIDA
+    function verificarSenha() {
+        const p = document.getElementById('passInput').value.trim().toUpperCase();
         const msg = document.getElementById('loginMsg');
-        if(pass.toUpperCase() === "VIP") {
-            msg.style.color = "#0f0";
+        
+        if(p === "VIP") {
+            msg.style.color = "#00ff00";
             msg.innerText = "SENHA XITADA CORRETA!";
             setTimeout(() => {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-panel').style.display = 'block';
-            }, 1000);
+            }, 800);
         } else {
             msg.style.color = "red";
             msg.innerText = "PELO CONTRÁRIO!";
         }
     }
 
-    function toggle(cb) {
-        if(cb.
+    function marcar(cb) {
+        if(cb.checked) {
+            let s = document.createElement('span');
+            s.className = 'check';
+            s.innerText = " ✅️";
+            cb.parentElement.appendChild(s);
+        } else {
+            let icon = cb.parentElement.querySelector('.check');
+            if(icon) icon.remove();
         }
     }
 
-    function toggle(cb) {
-        if(cb.
-
-        
+    function processar() {
+        const c = document.getElementById('console');
+        c.style.display = 'block';
+        document.getElementById('btnInjetar').innerText = "INJETANDO...";
+        const logs = ["> Bypass ATIVO", "> HS Cabeça 100%", "> Regedit OK", "> FINALIZADO!"];
+        let i = 0;
+        let t = setInterval(() => {
+            if(i < logs.length) { c.innerHTML += logs[i] + "<br>"; i++; }
+            else { 
+                clearInterval(t); 
+                document.getElementById('statusFinal').style.display = 'block';
+                document.getElementById('btnInjetar').innerText = "CONCLUÍDO!";
+            }
+        }, 600);
+    }
+</script>
+</body>
+</html>
